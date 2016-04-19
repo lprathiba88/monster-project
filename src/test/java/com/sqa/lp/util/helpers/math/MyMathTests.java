@@ -10,14 +10,11 @@
 
 package com.sqa.lp.util.helpers.math;
 
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static org.testng.Assert.*;
 
-import com.sqa.lp.util.helpers.MyMath;
+import org.testng.annotations.*;
+
+import com.sqa.lp.util.helpers.*;
 
 /**
  * MyMathTests //ADDD (description of class)
@@ -31,34 +28,17 @@ import com.sqa.lp.util.helpers.MyMath;
  * @since 1.0
  *
  */
-@RunWith(Parameterized.class)
+
 public class MyMathTests {
 
-	@Parameters
+	@DataProvider
 	public static Object[][] getData() {
 		Object[][] data = { { 2.0, 2.0, 4.0 }, { 5.0, 2.0, 25.0 }, { 4.0, 3.0, 64.0 }, { 1.0, 0.0, 1.0 },
 				{ 3.0, 1.0, 3.0 }, { 2.0, 1.5, 4 } };
 		return data;
 	}
 
-	private double expectedResult;
-	private double num;
-	private double power;
-
-	/**
-	 * @param num
-	 * @param power
-	 * @param result
-	 */
-	public MyMathTests(double num, double power, double expectedResult) {
-		super();
-		this.num = num;
-		this.power = power;
-		this.expectedResult = expectedResult;
-	}
-
-	@Test
-	@Ignore
+	@Test(enabled = false)
 	public void testDivideNumbers() {
 		double actualResult;
 		double expectedResult = 3.0;
@@ -70,11 +50,10 @@ public class MyMathTests {
 				actualResult);
 
 		System.out.println(message);
-		Assert.assertEquals(message, expectedResult, actualResult, 0);
+		assertEquals(expectedResult, actualResult, 0, message);
 	}
 
-	@Test
-	@Ignore
+	@Test(enabled = false)
 	public void testMyMathClass() {
 		double result;
 		double addNumber = 10;
@@ -96,18 +75,14 @@ public class MyMathTests {
 		myMath.displayOperations(5);
 	}
 
-	@Test
-	public void testPowerNumbers() {
-		double actualResult;
-		double expectedResult = this.expectedResult;
-		double number = this.num;
-		double power = this.power;
+	@Test(dataProvider = "getData")
+	public void testPowerNumbers(double num, double power, double expectedResult) {
+		double actualResult = MyMath.powerNumber(num, power);
 
-		actualResult = MyMath.powerNumber(number, power);
-		String message = String.format("The result of %.0f to the power of %.0f is %.0f ", number, power, actualResult);
+		String message = String.format("The result of %.0f to the power of %.0f is %.0f ", num, power, actualResult);
 
 		System.out.println(message);
-		Assert.assertEquals(message, expectedResult, actualResult, 0);
+		assertEquals(expectedResult, actualResult, 0, message);
 	}
 
 }

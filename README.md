@@ -1,8 +1,8 @@
-### basic-project
+### Monster-Project
 
-### March 26, 2016
+### April 18, 2016
 
-A basic application that we will be using for practice
+A basic application that we will be using for Selenium practice
 
 * Git
 * Java

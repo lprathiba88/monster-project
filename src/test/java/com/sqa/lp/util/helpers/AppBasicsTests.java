@@ -10,11 +10,7 @@
 
 package com.sqa.lp.util.helpers;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.testng.annotations.*;
 
 /**
  * AppBasicsTests //ADDD (description of class)
@@ -51,14 +47,14 @@ public class AppBasicsTests {
 	/**
 	 * @throws java.lang.Exception
 	 */
-	@Before
+	@BeforeMethod
 	public void setUp() throws Exception {
 	}
 
 	/**
 	 * @throws java.lang.Exception
 	 */
-	@After
+	@AfterMethod
 	public void tearDown() throws Exception {
 	}
 

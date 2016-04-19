@@ -14,6 +14,10 @@ import java.util.*;
 
 import com.sqa.lp.helpers.exceptions.*;
 
+import com.sqa.lp.helpers.exceptions.InvalidAcceptableDoubleException;
+import com.sqa.lp.helpers.exceptions.InvalidAcceptableNumberException;
+import com.sqa.lp.helpers.exceptions.InvalidAcceptableWordsException;
+
 /**
  * RequestInput //ADDD (description of class)
  * <p>
@@ -32,6 +36,15 @@ public class RequestInput {
 	// Get a char value from the user
 	// DONE
 	public static char getChar(String question) {
+
+		char character;
+		String input;
+
+		System.out.println(question);
+
+		scanner = new Scanner(System.in);
+		input = (scanner.nextLine());
+
 		return 0;
 	}
 
@@ -49,26 +62,28 @@ public class RequestInput {
 		boolean validDouble = false;
 		double resultValue = 0;
 
-		try {
-			System.out.println(question);
-			scanner = new Scanner(System.in);
-			resultValue = Double.parseDouble(scanner.nextLine());
+		while (true) {
+			try {
+				System.out.println(question);
+				scanner = new Scanner(System.in);
+				resultValue = Double.parseDouble(scanner.nextLine());
 
-			for (int i = 0; i < acceptableNumber.length; i++) {
-				if (resultValue == acceptableNumber[i]) {
-					validDouble = true;
-					break;
+				for (int i = 0; i < acceptableNumber.length; i++) {
+					if (resultValue == acceptableNumber[i]) {
+						validDouble = true;
+						break;
+					}
 				}
+				if (!validDouble) {
+					throw new InvalidAcceptableDoubleException();
+				}
+				return resultValue;
+			} catch (NumberFormatException e) {
+				System.out.println("You have not provided a valid double type (" + resultValue + ")");
+			} catch (InvalidAcceptableDoubleException e) {
+				System.out.println("You have not provided a value within the acceptable range (" + resultValue + ")");
 			}
-			if (!validDouble) {
-				throw new InvalidAcceptableDoubleException();
-			}
-		} catch (NumberFormatException e) {
-			System.out.println("You have not provided a valid double type (" + resultValue + ")");
-		} catch (InvalidAcceptableDoubleException e) {
-			System.out.println("You have not provided a value within the acceptable range (" + resultValue + ")");
 		}
-		return resultValue;
 
 	}
 
@@ -103,7 +118,27 @@ public class RequestInput {
 	}
 
 	public static int getIntWithRange(String question, int intMin, int intMax) {
-		return 0;
+
+		scanner = new Scanner(System.in);
+
+		int input = 0;
+		while (true) {
+			try {
+				System.out.println(question);
+				input = Integer.parseInt(scanner.nextLine());
+
+				if (input >= intMin && input <= intMax) {
+					return input;
+				} else {
+					throw new InvalidAcceptableNumberException();
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("You have not provided a valid integer type (" + input + ")");
+			} catch (InvalidAcceptableNumberException e) {
+				System.out.println("You have not provided a value within the acceptable range (" + input + ")");
+			}
+		}
+
 	}
 
 	public static String getString(String question) {
